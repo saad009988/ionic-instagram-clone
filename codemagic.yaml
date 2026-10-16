@@ -5,6 +5,8 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       node: 16.20.2 
+      # Hum Java 11 select kar rahe hain taaki purana Gradle crash na ho
+      java: 11
     triggering:
       events:
         - push
@@ -23,7 +25,6 @@ workflows:
           npm run build
       - name: Add Android Platform
         script: |
-          # Agar android folder nahi hai, to yeh command use create karegi
           npx cap add android
       - name: Copy Web Assets to Capacitor Android Platform
         script: |
@@ -36,7 +37,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - saadzubair3566@gmail.com # Apna email yahan dalein
+          - your-email@example.com # Yahan apna email dalein
         notify:
           success: true
           failure: true

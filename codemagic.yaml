@@ -4,16 +4,22 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      node: latest
+      # Hum ek stable aur compatible Node version force kar rahe hain
+      node: 18.20.0 
     triggering:
       events:
         - push
       branch_patterns:
-        - pattern: 'main' # Agar aapki branch ka naam 'master' hai to yahan master likhein
+        - pattern: 'main' # Agar aapki branch master hai to yahan master karein
     scripts:
+      - name: Fix old node-sass issue
+        script: |
+          # Purane node-sass ko delete karke modern sass install karein jo har jagah chalta hai
+          npm uninstall node-sass
+          npm install sass --save-dev
       - name: Install npm dependencies
         script: |
-          npm install
+          npm install --legacy-peer-deps
       - name: Build Web Production Assets
         script: |
           npm run build
@@ -28,7 +34,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com # Yahan apna sahi email address dalein
+          - your-email@example.com # Apna email yahan dalein
         notify:
           success: true
           failure: true

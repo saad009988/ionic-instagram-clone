@@ -4,17 +4,15 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      # Is project ke purane react-scripts ke liye Node v16 force kar rahe hain
       node: 16.20.2 
     triggering:
       events:
         - push
       branch_patterns:
-        - pattern: 'main' # Agar aapki branch master hai to yahan master karein
+        - pattern: 'main' # Agar branch master hai to yahan master karein
     scripts:
       - name: Fix old node-sass issue
         script: |
-          # Purane node-sass ko modern dart sass se replace karna zaroori hai
           npm uninstall node-sass
           npm install sass --save-dev
       - name: Install npm dependencies
@@ -23,6 +21,10 @@ workflows:
       - name: Build Web Production Assets
         script: |
           npm run build
+      - name: Add Android Platform
+        script: |
+          # Agar android folder nahi hai, to yeh command use create karegi
+          npx cap add android
       - name: Copy Web Assets to Capacitor Android Platform
         script: |
           npx cap sync android

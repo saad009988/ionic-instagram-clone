@@ -4,8 +4,8 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      # Hum ek stable aur compatible Node version force kar rahe hain
-      node: 18.20.0 
+      # Is project ke purane react-scripts ke liye Node v16 force kar rahe hain
+      node: 16.20.2 
     triggering:
       events:
         - push
@@ -14,7 +14,7 @@ workflows:
     scripts:
       - name: Fix old node-sass issue
         script: |
-          # Purane node-sass ko delete karke modern sass install karein jo har jagah chalta hai
+          # Purane node-sass ko modern dart sass se replace karna zaroori hai
           npm uninstall node-sass
           npm install sass --save-dev
       - name: Install npm dependencies
@@ -34,7 +34,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com # Apna email yahan dalein
+          - saadzubair3566@gmail.com # Apna email yahan dalein
         notify:
           success: true
           failure: true

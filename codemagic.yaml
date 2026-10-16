@@ -37,7 +37,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com # Yahan apna email dalein
+          - saadzubair3566@gmail.com # Yahan apna email dalein
         notify:
           success: true
           failure: true
